@@ -3,13 +3,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA35J4L0yA5yPphKszmtzG8W-uTwnUtHmQ",
-    authDomain: "leaderboard-c5ec8.firebaseapp.com",
-    projectId: "leaderboard-c5ec8",
-    storageBucket: "leaderboard-c5ec8.appspot.com",
-    messagingSenderId: "433474546332",
-    appId: "1:433474546332:web:3f697816220e03ac991b59"
-  };
+  apiKey: "AIzaSyAAYmKVvn-3kJYjBh5XI_Gb0KUkwhsjxjo",
+  authDomain: "sixty-escape-game.firebaseapp.com",
+  projectId: "sixty-escape-game",
+  storageBucket: "sixty-escape-game.appspot.com",
+  messagingSenderId: "559994329179",
+  appId: "1:559994329179:web:48b0fd20d57f877a15077e"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

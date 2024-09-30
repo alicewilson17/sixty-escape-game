@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -5,12 +6,95 @@
   font-family: 'Work Sans', sans-serif;
 }
 
+
+
 body {
   display: flex;
-  flex-direction: column;
 
+  justify-content: center;
+  flex-direction: column;
   min-height: 100vh;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 6rem;
 }
+
+/*Login*/
+h4{
+  font-size: 3rem;
+  margin-top: 4rem;
+ 
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ width: 100%;
+ height: 100%;
+}
+.text-area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
+  width: 80%;
+  height: 4rem;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.text-input{
+  font-size: 1.3rem;
+  border-radius: 1.5rem;
+  border: none;
+  height: 100%;
+  width: 100%;
+  padding-left: 1.5rem;
+}
+
+.login-btn{
+  margin-top: 1rem;
+  width: 10rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background: #B58DED;
+  border: none;
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
+  cursor: pointer;
+}
+
+.login{
+  margin: auto;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+  background: #FFFFFF;
+  width: 80%;
+  height: 30rem;
+ 
+  border-radius: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.link{
+  color: #0E4579;
+  font-family: 'Montserrat light';
+  font-size: 18px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+
+.login-error {
+  margin: 1rem;
+}
+/*Leaderboard*/
 
 .leaderboard {
   padding: 20px;
@@ -30,15 +114,19 @@ body {
   border-radius: 5px;
 }
 
+/*navbar*/
+
 .navbar {
+  display: flex;
   align-items: center;
   overflow: hidden;
   background-color: #333;
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  height: 6rem;
+ justify-content: center;
+  margin-top: 10rem;
 }
 
 .navbar ul {
@@ -91,11 +179,11 @@ padding: 3rem;
   background-color: #8abbff;
 }
 
-.puzzles h2 {
+.stations h2 {
   margin-bottom: 1rem;
 }
 
-.puzzle {
+.station {
   border: 1px solid rgb(165, 165, 165);
   border-radius: 1rem;
   padding: 1rem;

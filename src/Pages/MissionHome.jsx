@@ -1,8 +1,13 @@
 import React from 'react'
+import NavBar from '../Components/NavBar'
 
-function MissionHome() {
+function MissionHome({teamData}) {
+
   return (
-    <div>MissionHome</div>
+    <>
+    <NavBar/>
+    <div>Welcome, {teamData.team_name}</div>
+    </>
   )
 }
 

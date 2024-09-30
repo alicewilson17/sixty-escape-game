@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import React from "react";
+import NavBar from "../Components/NavBar";
 
 // //remember to update the security rules in production! in firestore:
 // service cloud.firestore {
@@ -68,6 +69,7 @@ function LeaderBoard() {
 
   return (
     <>
+    <NavBar/>
       <h1>LeaderBoard</h1>   
       <div className="leaderboard">
         {teams.map((team) => {
