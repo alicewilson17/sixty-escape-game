@@ -8,7 +8,7 @@ import {
   where,
   getDocs,
   getDoc,
-  addDoc
+  addDoc,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
@@ -21,8 +21,7 @@ function Challenges({ teamData }) {
   const [answers, setAnswers] = useState({});
   const currentUserId = teamData.team_id;
 
-
-  async function fetchStations() {
+  useEffect(() => {
     const answersRef = collection(db, "answers");
     const answerQuery = query(
       answersRef,
@@ -30,34 +29,26 @@ function Challenges({ teamData }) {
     );
 
     //listen for real-time updates to the answers collection
-    return onSnapshot(answerQuery, async (answerSnapshot) => {
-             const answeredStationIds = answerSnapshot.docs.map(
-               (doc) => doc.data().station_id
-             );
+  const unsubscribe = onSnapshot(answerQuery, async (answerSnapshot) => {
+      const answeredStationIds = answerSnapshot.docs.map(
+        (doc) => doc.data().station_id
+      );
 
-       
-             //fetch the remaining and completed stations based on the answered stations
-             const remainingStationsDb = await getRemainingStations(
-               answeredStationIds
-             );
-             const completedStationsDb = await getCompletedStations(
-               answeredStationIds
-             );
+      //fetch the remaining and completed stations based on the answered stations
+      const remainingStationsDb = await getRemainingStations(
+        answeredStationIds
+      );
+      const completedStationsDb = await getCompletedStations(
+        answeredStationIds
+      );
 
-
-       
-             setRemainingStations(remainingStationsDb);
-             setCompletedStations(completedStationsDb);
-   })
-  }
-
-  
-  useEffect(() => {
-    const unsubscribe = fetchStations(); //Calling fetchStations inside useEffect to fetch data on component mount
+      setRemainingStations(remainingStationsDb);
+      setCompletedStations(completedStationsDb);
+    });
     return () => {
-        unsubscribe() //clean up the listener on unmount
-    }
-}, [currentUserId]);
+      unsubscribe(); //clean up the listener on unmount
+    };
+  }, [currentUserId]);
 
   async function getRemainingStations(answeredStationIds) {
     //if there are no completed stations, fetch all stations
@@ -84,7 +75,6 @@ function Challenges({ teamData }) {
   }
 
   async function getCompletedStations(answeredStationIds) {
-
     //if no stations are completed yet, return empty array
     if (answeredStationIds.length === 0) {
       return [];
@@ -119,7 +109,7 @@ function Challenges({ teamData }) {
 
       //if the answer is correct, add to the answers table
       if (userAnswer === correctAnswer) {
-        const customStationId = stationSnap.data().station_id
+        const customStationId = stationSnap.data().station_id;
         //create a new document in the answers table
         await addDoc(collection(db, "answers"), {
           team_id: currentUserId,
@@ -166,7 +156,9 @@ function Challenges({ teamData }) {
           <h2>Remaining Stations</h2>
           {remainingStations.map((station) => (
             <div key={station.id} className="station">
-              <h3>{station.name}, {station.station_id}</h3>
+              <h3>
+                {station.name}, {station.station_id}
+              </h3>
               <input
                 type="text"
                 placeholder="Your answer"

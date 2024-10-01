@@ -7,84 +7,90 @@ import {
   updateDoc,
   doc,
   getDoc,
+  getDocs,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import React from "react";
 import NavBar from "../Components/NavBar";
 
-// //remember to update the security rules in production! in firestore:
-// service cloud.firestore {
-//     match /databases/{database}/documents {
-//       match /teams/{teamId} {
-//         allow read, write: if request.auth != null;
-//       }
-//     }
-//   }
+function LeaderBoard({ teamData }) {
+  const currentUserId = teamData.team_id;
+  const [leaderboard, setLeaderboard] = useState([]);
 
-function LeaderBoard() {
-  const [teams, setTeams] = useState([]);
-  //getting most up to date team data//
-  useEffect(() => {
-    const q = query(collection(db, "teams"), orderBy("score", "desc")); // The query listens to changes in the teams collection, ordering them by score in descending order
-
-    //onSnapshot ensures the leaderboard updates instantly whenever a team’s score changes.
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const teamsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })); //map to convert the Firestore documents into a usable array for react
-      setTeams(teamsData); //update the teams state with the updated data
-    });
-    return () => unsubscribe(); //cleanup listener on unmount
-  }, []);
-
-  //update team score - call this when a team correctly answers a puzzle//
-  const updateTeamScore = async (teamId, points) => {
+  //fetch all data from answers table and sum up the points for each team
+  async function getTeamPoints() {
     try {
-      // Reference the team's document in Firestore
-      const teamRef = doc(db, "teams", teamId);
+      const answersRef = collection(db, "answers");
+      const answersQuery = query(answersRef);
+      const answersSnapshot = await getDocs(answersQuery);
 
-      // Get the team's current data (including the score)
-      const teamSnap = await getDoc(teamRef);
+      const answers = answersSnapshot.docs.map((answer) => answer.data());
 
-      if (teamSnap.exists()) {
-        const currentScore = teamSnap.data().score;
-
-        // Update the score by adding/subtracting the points
-        const newScore = currentScore + points;
-
-        // Update the document with the new score
-        await updateDoc(teamRef, {
-          score: newScore,
-        });
-
-        console.log(`Updated team ${teamId} score to: ${newScore}`);
-      } else {
-        console.log("Team doesn't exist");
-      }
+      const pointsPerTeam = answers.reduce((acc, currentAnswerEntry) => {
+        const { team_id, points } = currentAnswerEntry;
+        // If the team_id doesn't exist yet in the accumulator object, initialize it to 0
+        if (!acc[team_id]) {
+          acc[team_id] = 0;
+        }
+        // Add the current answer entry's points to the team's accumulated total
+        acc[team_id] += points;
+        return acc;
+      }, {});
+      return pointsPerTeam;
     } catch (error) {
-      console.error("Error updating score: ", error);
+      console.log(error);
     }
-  };
+  }
+
+  //get teams data
+  async function fetchTeams() {
+    try {
+        const teamsRef = collection(db, "teams");
+        const teamsQuery = query(teamsRef);
+        const teamsSnapshot = await getDocs(teamsQuery);
+        const teams = teamsSnapshot.docs.map((team) => team.data());
+        return teams;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //combine the points by team from answers table and the team name from teams table to create leaderboard array, and sort by highest to lowest points
+  async function getLeaderboard() {
+    try {
+      const pointsByTeam = await getTeamPoints();
+    const teamsData = await fetchTeams();
+    const leaderboard = teamsData.map((team) => ({
+      team_name: team.team_name,
+      points: pointsByTeam[team.team_id] || 0
+    }))
+    const orderedLeaderboard = leaderboard.sort((a, b) => b.points - a.points)
+    return orderedLeaderboard
+  }
+  catch(error) {
+    console.log(error)
+  }
+}
+
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      const lb = await getLeaderboard()
+      setLeaderboard(lb)
+    }
+    fetchLeaderboard()
+  }, []);
 
   return (
     <>
-    <NavBar/>
-      <h1>LeaderBoard</h1>   
+      <NavBar />
+      <h1>LeaderBoard</h1>
       <div className="leaderboard">
-        {teams.map((team) => {
+        {leaderboard.map((team, index) => {
           return (
-            <div key={team.id} className="team">
+            <div key={index} className="team">
               <span>{team.team_name}</span>
-              <span>{team.score} points</span>
-              <button
-                onClick={() => {
-                  updateTeamScore(team.id, 3);
-                }}
-              >
-                {" "}
-                Add 3 points{" "}
-              </button>
+              <span>{team.points} points</span>
             </div>
           );
         })}
@@ -92,6 +98,5 @@ function LeaderBoard() {
     </>
   );
 }
-
 
 export default LeaderBoard;
