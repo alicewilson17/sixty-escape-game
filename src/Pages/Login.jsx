@@ -25,7 +25,7 @@ function Login({ setTeamData }) {
         await signInAnonymously(auth);
         const teamData = querySnapshot.docs[0].data();
         setTeamData(teamData);
-        console.log("Logged in successfully:", teamData);
+        console.log("Logged in successfully:", teamData.team_name);
       } else {
         setError("Invalid team name or passcode. Please try again.");
       }

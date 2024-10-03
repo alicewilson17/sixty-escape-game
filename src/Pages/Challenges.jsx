@@ -15,7 +15,7 @@ import { db } from "../../firebase";
 import NavBar from "../Components/NavBar";
 import { Link } from "react-router-dom";
 
-function Challenges({ teamData }) {
+function Challenges({ teamData, isGameInProgress }) {
   const [statusToggle, setStatusToggle] = useState("remaining");
   const [remainingStations, setRemainingStations] = useState([]);
   const [completedStations, setCompletedStations] = useState([]);
@@ -92,11 +92,12 @@ function Challenges({ teamData }) {
       }));
     }
   }
-
-  return (
-    <div className="challenges">
+return (
+<div className="challenges">
       <NavBar />
       <h1>Stations</h1>
+      {isGameInProgress ? (
+        <>
       <div className="challenges-toggle">
         <button
           className={
@@ -144,8 +145,12 @@ function Challenges({ teamData }) {
           ))}
         </div>
       )}
-    </div>
-  );
+      </>
+    ) : (
+       <p>The mission is not currently in progress. Check back later.</p>
+      )}
+    </div>)
+
 }
 
 export default Challenges;

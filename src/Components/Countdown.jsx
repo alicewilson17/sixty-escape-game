@@ -1,7 +1,7 @@
 import { count } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 
-function Countdown({startTime, endTime}) {
+function Countdown({startTime, endTime, setIsGameInProgress}) {
 
 //want countdown to either first load as 0 if game has finished, endtime-start time if game hasnt started, or endtime-current time if game in progress.
 
@@ -12,12 +12,15 @@ function calculateCountdown() {
     let counter = 0;
     if ((startTime < currentTime) && (currentTime < endTime)) {
         counter = endTime-currentTime //if game in progress, return time left until end of game
+        setIsGameInProgress(true)
     }
     else if ((startTime > currentTime)) {
         counter = endTime-startTime //if game hasn't started yet, return full length of game
+        setIsGameInProgress(false)
     }
     else {
         counter = 0 //if game has finished, return 0
+        setIsGameInProgress(false)
     }
     return counter
 }

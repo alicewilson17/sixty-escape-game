@@ -9,6 +9,7 @@ import SingleChallenge from "./Pages/SingleChallenge";
 
 
 function App() {
+  const [isGameInProgress, setIsGameInProgress] = useState(false)
 
   //state for storing logged-in team data, get it from localStorage if it exists
   const [teamData, setTeamData] = useState(() => {
@@ -27,8 +28,8 @@ function App() {
     <div>
       
       <Routes>
-        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData}m setTeamData={setTeamData}/>} />
-        <Route path="/challenges" element={<Challenges teamData={teamData}/>} />
+        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData} setTeamData={setTeamData} setIsGameInProgress={setIsGameInProgress}/>} />
+        <Route path="/challenges" element={<Challenges teamData={teamData} isGameInProgress={isGameInProgress}/>} />
         <Route path="/leaderboard" element={<LeaderBoard teamData={teamData}/>} />
         <Route path="/challenges/:station_id" element={<SingleChallenge teamData={teamData}/>} />
       </Routes>

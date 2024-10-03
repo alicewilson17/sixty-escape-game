@@ -4,30 +4,39 @@ import Countdown from "../Components/Countdown";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 
-function MissionHome({ teamData, setTeamData }) {
-  const startTime = new Date("October 24, 2024 14:00:00");
-  const endTime = new Date("October 24, 2024 16:00:00");
+function MissionHome({ teamData, setTeamData, setIsGameInProgress }) {
+  const startTime = new Date("October 3, 2024 15:20:00");
+  const endTime = new Date("October 3, 2024 19:00:00");
 
-async function handleSignOut(event) {
- try {
-  await auth.signOut()
-  setTeamData(null)
-  console.log("Signed out successfully.")
-}
-catch(error) {
-  console.log("Error signing out. Please try again.")
-}
-
-}
+  async function handleSignOut() {
+    try {
+      await auth.signOut();
+      setTeamData(null);
+      console.log("Signed out successfully.");
+    } catch (error) {
+      console.log("Error signing out. Please try again.");
+    }
+  }
 
   return (
     <>
       <NavBar />
-    <div className="mission-home">
-      <div className="mission-header"><h1>Welcome, {teamData.team_name}</h1></div>
-      <Countdown startTime={startTime} endTime={endTime} />
-      <p className="sign-out">Need to switch teams? <button className="signout-btn" onClick={handleSignOut}>Click here</button></p>
-    </div>
+      <div className="mission-home">
+        <div className="mission-header">
+          <h1>Welcome, {teamData.team_name}</h1>
+        </div>
+        <Countdown
+          startTime={startTime}
+          endTime={endTime}
+          setIsGameInProgress={setIsGameInProgress}
+        />
+        <p className="sign-out">
+          Need to switch teams?{" "}
+          <button className="signout-btn" onClick={handleSignOut}>
+            Click here
+          </button>
+        </p>
+      </div>
     </>
   );
 }
