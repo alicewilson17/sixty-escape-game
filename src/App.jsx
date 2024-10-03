@@ -9,14 +9,6 @@ import SingleChallenge from "./Pages/SingleChallenge";
 
 
 function App() {
-  if (import.meta.env.MODE === 'development') {
-    console.log("You're in development mode");
-  } else if (import.meta.env.MODE === 'production') {
-    console.log("You're in production mode");
-  }
-  
-
-
 
   //state for storing logged-in team data, get it from localStorage if it exists
   const [teamData, setTeamData] = useState(() => {
