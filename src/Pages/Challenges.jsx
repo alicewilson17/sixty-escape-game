@@ -125,14 +125,17 @@ return (
       {statusToggle === "remaining" && (
         <div className="stations">
           <h2>Remaining Stations</h2>
-          <p className="remaining-stations-instructions">Tap a station to input your answer.</p>
-          {remainingStations.map((station) => (
-            <Link to={`/challenges/${station.station_id}`} key={station.id} state={{ station }}>
-              <button key={station.id} className="module">
-                <h3>{station.name}</h3>  <p>{station.desc}</p>
-             </button>
-              </Link>
-          ))} 
+          <p className="remaining-stations-instructions">
+          {remainingStations.length>0 ? "Tap a station to input your answer." : "Mission complete! You have successfully completed all of the stations. Please return to HQ."}</p>
+
+            {remainingStations.map((station) => (
+              <Link to={`/challenges/${station.station_id}`} key={station.id} state={{ station }}>
+                <button key={station.id} className="module">
+                  <h3>{station.name}</h3>  <p>{station.desc}</p>
+               </button>
+                </Link>
+            ))
+          }
         </div>
       )}
       {statusToggle === "completed" && (
