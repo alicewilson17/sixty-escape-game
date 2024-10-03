@@ -13,12 +13,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import NavBar from "../Components/NavBar";
+import { Link } from "react-router-dom";
 
 function Challenges({ teamData }) {
   const [statusToggle, setStatusToggle] = useState("remaining");
   const [remainingStations, setRemainingStations] = useState([]);
   const [completedStations, setCompletedStations] = useState([]);
-  const [answers, setAnswers] = useState({});
+
   const currentUserId = teamData.team_id;
 
   useEffect(() => {
@@ -92,37 +93,6 @@ function Challenges({ teamData }) {
     }
   }
 
-  function handleInputChange(e, stationId) {
-    setAnswers({
-      ...answers,
-      [stationId]: e.target.value,
-    });
-  }
-
-  async function handleSubmitAnswer(stationId) {
-    const userAnswer = answers[stationId]; //get the user's inputted answer from the state
-    const stationRef = doc(db, "stations", stationId);
-    const stationSnap = await getDoc(stationRef);
-
-    if (stationSnap.exists()) {
-      const correctAnswer = stationSnap.data().correct_answer;
-
-      //if the answer is correct, add to the answers table
-      if (userAnswer === correctAnswer) {
-        const customStationId = stationSnap.data().station_id;
-        //create a new document in the answers table
-        await addDoc(collection(db, "answers"), {
-          team_id: currentUserId,
-          station_id: customStationId,
-          points: stationSnap.data().points,
-        });
-        console.log("Correct answer. Station completed!");
-      } else {
-        console.log("Incorrect answer. Try again.");
-      }
-    }
-  }
-
   return (
     <div className="challenges">
       <NavBar />
@@ -154,30 +124,22 @@ function Challenges({ teamData }) {
       {statusToggle === "remaining" && (
         <div className="stations">
           <h2>Remaining Stations</h2>
+          <p className="remaining-stations-instructions">Tap a station to input your answer.</p>
           {remainingStations.map((station) => (
-            <div key={station.id} className="station">
-              <h3>
-                {station.name}, {station.station_id}
-              </h3>
-              <input
-                type="text"
-                placeholder="Your answer"
-                value={answers[station.id] || ""}
-                onChange={(e) => handleInputChange(e, station.id)}
-              />
-              <button onClick={() => handleSubmitAnswer(station.id)}>
-                Submit
-              </button>
-            </div>
-          ))}
+            <Link to={`/challenges/${station.station_id}`} key={station.id} state={{ station }}>
+              <button key={station.id} className="module">
+                <h3>{station.name}</h3>  <p>{station.desc}</p>
+             </button>
+              </Link>
+          ))} 
         </div>
       )}
       {statusToggle === "completed" && (
         <div className="stations">
           <h2>Completed Stations</h2>
           {completedStations.map((station) => (
-            <div key={station.id} className="station">
-              <h3>{station.name}</h3>
+            <div key={station.id} className="module">
+              <h3>{station.name}</h3> <p>{station.desc}</p>
             </div>
           ))}
         </div>

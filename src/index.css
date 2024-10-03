@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -17,12 +17,59 @@ body {
   text-align: center;
   width: 100%;
   padding-bottom: 6rem;
+  background-color: #13162d;
+  color: rgb(224, 224, 224)
+}
+
+h1 {
+  font-family: 'Orbitron';
+  font-size: 2.5rem;
+  padding: 1rem;
+  letter-spacing: 0.1rem;
+}
+
+
+/*mission page */
+.sign-out {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  font-size: 0.8rem;
+}
+
+.signout-btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-decoration: underline;
+  font-size: 0.8rem;
+}
+
+.mission-home {
+  padding: 3rem;
+}
+
+.countdown {
+  font-family: 'Orbitron';
+  color:rgb(18, 255, 235);
+  letter-spacing: 0.1rem;
+  font-size: 3rem;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 }
 
 /*Login*/
-h4{
-  font-size: 3rem;
-  margin-top: 4rem;
+
+.login-container {
+  position: relative;
+  width: 100%;
+}
+.login-title{
+margin-bottom: 1rem;
+letter-spacing: 0.2rem;
  
 }
 
@@ -32,9 +79,10 @@ form{
   align-items: center;
   justify-content: center;
  width: 100%;
- height: 100%;
+ 
+
 }
-.text-area{
+.text-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,19 +100,26 @@ form{
   height: 100%;
   width: 100%;
   padding-left: 1.5rem;
+  background-color: black;
+  color: white;
 }
 
 .login-btn{
   margin-top: 1rem;
   width: 10rem;
   height: 4rem;
-  border-radius: 2rem;
-  background: #B58DED;
-  border: none;
-  font-size: 1.4rem;
-  color: #FFFFFF;
-  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7), 0 6px 20px 0 rgba(181, 141, 237, 0.9);
-  cursor: pointer;
+  font-size: 1.3rem;
+border-radius: 0.5rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    width: 50%;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
 }
 
 .login{
@@ -73,45 +128,59 @@ form{
  flex-direction: column;
  justify-content: center;
  align-items: center;
-  background: #FFFFFF;
+  background-color: #4a4a4a;
   width: 80%;
   height: 30rem;
- 
+ border: 2px solid rgb(18, 255, 235);
   border-radius: 2rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 1px 1px 0px 0px rgb(18, 255, 235), 2px 2px 0px 0px rgb(18, 255, 235), 3px 3px 0px 0px rgb(18, 255, 235), 4px 4px 0px 0px rgb(18, 255, 235), 10px 10px 0px 0px rgb(18, 255, 235);
 }
-
-.link{
-  color: #0E4579;
-  font-family: 'Montserrat light';
-  font-size: 18px;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-}
-
 
 .login-error {
-  margin: 1rem;
+  position: absolute;
+  margin:3rem;
+  color: rgb(255, 151, 151);
+  font-size: 1rem;
+ 
 }
 /*Leaderboard*/
 
+
+.leaderboard-container {
+  padding: 2rem;
+}
 .leaderboard {
-  padding: 20px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.team {
+.module {
   display: flex;
   justify-content: space-between;
   width: 100%;
   max-width: 600px;
-  padding: 10px;
-  background-color: #f5f5f5;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  padding: 1rem;
+  background-color: #4a4a4a;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: none;
+  text-decoration: none;
+  color:white;
+  width: 100%;
+  max-width: 30rem;
+ 
+}
+
+.module h3 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+}
+.team-points {
+  color: rgb(18, 255, 235);
+  font-size: 1.2rem;
 }
 
 /*navbar*/
@@ -120,7 +189,7 @@ form{
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-color: #333;
+  background-color: #989898;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -129,44 +198,50 @@ form{
   margin-top: 10rem;
 }
 
-.navbar ul {
-  list-style-type: none;
+.navbar-items {
   display: flex;
-  align-items: center;
-justify-content: space-evenly;
-  text-transform: uppercase;
+  justify-content: space-between;
+  width: 80%;
+  
+  
 }
 
 .navbar-link {
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
+  flex-grow: 1;
+ font-size: 0.8rem;
   text-decoration: none;
-  font-size: 17px;
+
+
 }
 
-.navbar-link:hover {
-  background: #f1f1f1;
+.icon {
+height: 2.5rem;
+padding-bottom: 0.2rem;
+}
+
+.icon-text {
+  text-decoration: none;
   color: black;
-}
-
-.navbar-link.active {
-  background-color: #04AA6D;
-  color: white;
+  
 }
 
 .challenges {
+  position: relative;
   display: flex;
   flex-direction: column;
 align-items: center;
-justify-content: center;
+justify-content: flex-start;
+min-height: 100vh;
 padding: 3rem;
 }
 
 .challenges-toggle {
-  padding: 2rem;
+ margin: 2rem;
   display: flex;
+  border: 2px solid #cccccc;
+  position: relative;
+  z-index: 1;
+
 }
 
 .challenges-toggle button {
@@ -175,19 +250,167 @@ padding: 3rem;
   width: 10rem;
 }
 
-.status-button-active {
-  background-color: #8abbff;
+.status-button-inactive {
+  background-color: transparent;
+  color: white;
 }
+
+.status-button-active {
+  background-color: #cccccc;
+}
+
+.stations {
+  margin-top: 1rem;
+  min-height: 50vh;
+  width: 100%;
+}
+.stations button {
+  text-decoration: none;
+  color: white; 
+}
+
+.stations button h3 {
+  text-decoration: none;
+}
+
+.stations button p {
+  font-size: 1rem;
+}
+
+.stations a {
+  text-decoration: none;
+}
+
+.stations a:hover {
+  text-decoration: none; /* Ensures no underline on hover */
+}
+
+
 
 .stations h2 {
   margin-bottom: 1rem;
 }
+.remaining-stations-instructions {
+  margin-bottom: 1rem;
+}
 
-.station {
-  border: 1px solid rgb(165, 165, 165);
-  border-radius: 1rem;
-  padding: 1rem;
-  display: flex;
-  gap: 1rem;
-  background-color: #f1f1f1;
+/*single challenge page*/
+.single-station-name {
+  font-family: 'Orbitron';
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.single-station-container {
+  position: relative;
+  width: 100%;
+}
+
+
+
+.submit{
+  width: 10rem;
+  height: 4rem;
+  font-size: 1.3rem;
+border-radius: 0.5rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    width: 50%;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+}
+
+.single-station{
+  margin: auto;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+  background-color: #4a4a4a;
+  width: 80%;
+  height: 30rem;
+ border: 2px solid rgb(18, 255, 235);
+  border-radius: 2rem;
+  box-shadow: 1px 1px 0px 0px rgb(18, 255, 235), 2px 2px 0px 0px rgb(18, 255, 235), 3px 3px 0px 0px rgb(18, 255, 235), 4px 4px 0px 0px rgb(18, 255, 235), 10px 10px 0px 0px rgb(18, 255, 235);
+}
+
+.single-station h3 {
+  margin-bottom: 2.5rem;
+}
+
+
+.back-button-container {
+  display:flex;
+  align-items: center;
+justify-content: center;
+}
+
+.back-to-stations {
+  margin-top:2rem;
+  font-weight: bold;
+
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: underline;
+  background-color: transparent;
+  border:none;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+}
+/* 
+.input {
+  padding: 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  background-color:black;
+  margin-top:2rem;
+  margin-bottom: 1rem;
+}
+
+
+
+
+.submit {
+  margin: auto;
+  margin-top: 1rem;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  width: 50%;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+} */
+
+.submit:disabled {
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  color:rgb(135, 135, 135);
+  background-color: #cfcfcf;
+  top: 5px;
+  left: 5px;
+}
+
+.single-station-container p {
+  margin-top: 2rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .submit {
+    padding: 0.25em 0.75em;
+  }
 }

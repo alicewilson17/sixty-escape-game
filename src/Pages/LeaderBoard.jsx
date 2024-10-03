@@ -84,16 +84,18 @@ function LeaderBoard({ teamData }) {
   return (
     <>
       <NavBar />
-      <h1>LeaderBoard</h1>
+    <div className="leaderboard-container">
+      <h1>Leaderboard</h1>
       <div className="leaderboard">
         {leaderboard.map((team, index) => {
           return (
-            <div key={index} className="team">
-              <span>{team.team_name}</span>
-              <span>{team.points} points</span>
+            <div key={index} className="module">
+              <h3>{team.team_name}</h3>
+              <span className="team-points">{team.points} points</span>
             </div>
           );
         })}
+      </div>
       </div>
     </>
   );

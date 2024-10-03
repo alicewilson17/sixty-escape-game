@@ -36,9 +36,9 @@ function Login({ setTeamData }) {
   }
 
   return (
-    <>
+    <div className="login-container">
     <div className="login">
-      <h4>Login</h4>
+      <h1 className="login-title">Login</h1>
       <form className="form" onSubmit={handleLogin}>
         <div className="text-area">
           <input
@@ -62,7 +62,7 @@ function Login({ setTeamData }) {
       </form>
     </div>
       {error && <p className="login-error">{error}</p>}
-      </>
+      </div>
   );
 }
 

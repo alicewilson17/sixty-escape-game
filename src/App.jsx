@@ -5,6 +5,7 @@ import MissionHome from "./Pages/MissionHome";
 import Challenges from "./Pages/Challenges";
 import {Route, Routes} from 'react-router-dom'
 import { useState, useEffect } from "react";
+import SingleChallenge from "./Pages/SingleChallenge";
 
 
 function App() {
@@ -26,9 +27,10 @@ function App() {
     <div>
       
       <Routes>
-        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData}/>} />
+        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData}m setTeamData={setTeamData}/>} />
         <Route path="/challenges" element={<Challenges teamData={teamData}/>} />
         <Route path="/leaderboard" element={<LeaderBoard teamData={teamData}/>} />
+        <Route path="/challenges/:station_id" element={<SingleChallenge teamData={teamData}/>} />
       </Routes>
     </div>
   );

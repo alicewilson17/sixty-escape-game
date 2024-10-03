@@ -11,24 +11,24 @@ function calculateCountdown() {
     
     let counter = 0;
     if ((startTime < currentTime) && (currentTime < endTime)) {
-        counter = endTime-currentTime
+        counter = endTime-currentTime //if game in progress, return time left until end of game
     }
     else if ((startTime > currentTime)) {
-        counter = endTime-startTime
+        counter = endTime-startTime //if game hasn't started yet, return full length of game
     }
     else {
-        counter = 0
+        counter = 0 //if game has finished, return 0
     }
     return counter
 }
 
-const [countdown, setCountdown] = useState(calculateCountdown())
+const [countdown, setCountdown] = useState(calculateCountdown()) 
 
 
 useEffect(() => {
     const interval = setInterval(() => {
-        setCountdown(calculateCountdown())
-    }, 1000)
+        setCountdown(calculateCountdown()) 
+    }, 1000) //recalculate the countdown ever second
     return () => clearInterval(interval)
 }, [countdown])
 
@@ -41,10 +41,10 @@ const timeString = `${hours < 10 ? 0 : ""}${hours}:${mins < 10 ? 0 : ""}${mins}:
 
 
   return (
-    <div>Countdown
-        <div>{timeString}</div>
-        {countdown === 0 && <div>Time's up! The mission has finished. Please return to HQ.</div>}
-        {countdown === endTime-startTime && <div>The mission hasn't started yet. Please check back later.</div>}
+    <div><h3>Time remaining</h3>
+        <p className='countdown'>{timeString}</p>
+        {countdown === 0 && <p>Time's up! The mission has finished. Please return to HQ.</p>}
+        {countdown === endTime-startTime && <p>The mission hasn't started yet. Please check back later.</p>}
     </div>
 
   )
