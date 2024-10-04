@@ -51,7 +51,7 @@ function Login({ setTeamData }) {
         </div>
         <div className="text-area">
           <input
-            type="text"
+            type="password"
             placeholder="Passcode"
             value={password}
             className="text-input"
