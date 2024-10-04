@@ -311,6 +311,8 @@ padding: 3rem;
 .single-station-container {
   position: relative;
   width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 
