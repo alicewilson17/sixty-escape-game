@@ -5,8 +5,8 @@ import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 
 function MissionHome({ teamData, setTeamData, setIsGameInProgress }) {
-  const startTime = new Date("October 4, 2024 10:00:00");
-  const endTime = new Date("October 4, 2024 12:00:00");
+  const startTime = new Date("October 8, 2024 10:00:00");
+  const endTime = new Date("October 8, 2024 12:00:00");
 
   async function handleSignOut() {
     try {
@@ -20,7 +20,7 @@ function MissionHome({ teamData, setTeamData, setIsGameInProgress }) {
 
   return (
     <>
-      <NavBar />
+
       <div className="mission-home">
         <div className="mission-header">
           <h1>Welcome, {teamData.team_name}</h1>

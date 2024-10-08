@@ -62,7 +62,7 @@ function SingleChallenge({ teamData }) {
 
   return (
     <>
-      <NavBar />
+
       <div className="single-station-container">
         <div className="single-station">
           <h2 className="single-station-name">{station.name}</h2>

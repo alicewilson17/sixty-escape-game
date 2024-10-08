@@ -83,7 +83,7 @@ function LeaderBoard({ teamData }) {
 
   return (
     <>
-      <NavBar />
+
     <div className="leaderboard-container">
       <h1>Leaderboard</h1>
       <div className="leaderboard">

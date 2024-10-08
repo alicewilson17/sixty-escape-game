@@ -94,7 +94,6 @@ function Challenges({ teamData, isGameInProgress }) {
   }
 return (
 <div className="challenges">
-      <NavBar />
       <h1>Stations</h1>
       {isGameInProgress ? (
         <>

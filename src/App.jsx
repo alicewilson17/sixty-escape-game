@@ -10,6 +10,29 @@ import SingleChallenge from "./Pages/SingleChallenge";
 
 function App() {
   const [isGameInProgress, setIsGameInProgress] = useState(false)
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const handleFocusIn = (event) => {
+      const inputField = event.target;
+    if (inputField.tagName === "INPUT" || inputField.tagName === "TEXTAREA") {
+      inputField.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+      setIsKeyboardOpen(true); // Hide navbar when keyboard opens
+    };
+
+    const handleFocusOut = () => {
+      setIsKeyboardOpen(false); // Show navbar when keyboard closes
+    };
+
+    window.addEventListener("focusin", handleFocusIn);
+    window.addEventListener("focusout", handleFocusOut);
+
+    return () => {
+      window.removeEventListener("focusin", handleFocusIn);
+      window.removeEventListener("focusout", handleFocusOut);
+    };
+  }, []);
 
   //state for storing logged-in team data, get it from localStorage if it exists
   const [teamData, setTeamData] = useState(() => {
@@ -26,7 +49,8 @@ function App() {
 
   return (
     <div>
-      
+      {/* only render the NavBar if a used is logged in and the keyboard is not open */}
+      <NavBar style={{ display: teamData && !isKeyboardOpen ? 'flex' : 'none' }} />
       <Routes>
         <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData} setTeamData={setTeamData} setIsGameInProgress={setIsGameInProgress}/>} />
         <Route path="/challenges" element={<Challenges teamData={teamData} isGameInProgress={isGameInProgress}/>} />
