@@ -50,7 +50,7 @@ function App() {
   return (
     <div>
       {/* only render the NavBar if a used is logged in and the keyboard is not open */}
-      <NavBar style={{ display: teamData && !isKeyboardOpen ? 'flex' : 'none' }} />
+      <NavBar className={teamData && !isKeyboardOpen ? 'visible' : 'hidden'} />
       <Routes>
         <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData} setTeamData={setTeamData} setIsGameInProgress={setIsGameInProgress}/>} />
         <Route path="/challenges" element={<Challenges teamData={teamData} isGameInProgress={isGameInProgress}/>} />

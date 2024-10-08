@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-function NavBar() {
+function NavBar({className}) {
   return (
-    <nav className='navbar'>
+    <nav className={`navbar ${className}`}>
 <div className="navbar-items">
                 
                         <Link to = {"/"} className="navbar-link"><img className="icon" src="../../assets/icons/home.png" alt="home"/><p className='icon-text'>Home</p></Link>

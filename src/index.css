@@ -196,6 +196,13 @@ border-radius: 0.5rem;
  justify-content: center;
   z-index: 1000; /*ensures nav bar is always in front of other elements on the page*/
 }
+.hidden {
+  display: none; /* Hides the navbar */
+}
+
+.visible {
+  display: flex; /* Shows the navbar */
+}
 
 .navbar-items {
   display: flex;
