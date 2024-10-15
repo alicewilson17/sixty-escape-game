@@ -47,7 +47,7 @@ function LeaderBoard({ teamData }) {
   async function fetchTeams() {
     try {
         const teamsRef = collection(db, "teams");
-        const teamsQuery = query(teamsRef);
+        const teamsQuery = query(teamsRef, where("team_id", "not-in", ["admin"]));
         const teamsSnapshot = await getDocs(teamsQuery);
         const teams = teamsSnapshot.docs.map((team) => team.data());
         return teams;

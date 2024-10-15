@@ -3,7 +3,7 @@ import { signInAnonymously, setPersistence, browserLocalPersistence } from "fire
 import { db, auth } from "../../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-function Login({ setTeamData }) {
+function Login({ setTeamData, setIsAdmin }) {
   const [teamName, setTeamName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,6 +25,7 @@ function Login({ setTeamData }) {
         await signInAnonymously(auth);
         const teamData = querySnapshot.docs[0].data();
         setTeamData(teamData);
+        setIsAdmin(teamData.team_name === 'admin')
         console.log("Logged in successfully:", teamData.team_name);
       } else {
         setError("Invalid team name or passcode. Please try again.");

@@ -11,6 +11,19 @@ import SingleChallenge from "./Pages/SingleChallenge";
 function App() {
   const [isGameInProgress, setIsGameInProgress] = useState(false)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false)
+  //state for storing logged-in team data, get it from localStorage if it exists
+  const [teamData, setTeamData] = useState(() => {
+    const savedTeamData = localStorage.getItem('teamData')
+    return savedTeamData ? JSON.parse(savedTeamData) : null
+  })
+
+   // Whenever teamData is updated, save it to localStorage
+   useEffect(() => {
+    if (teamData) {
+      localStorage.setItem('teamData', JSON.stringify(teamData));
+    }
+  }, [teamData]);
 
   useEffect(() => {
     const handleFocusIn = (event) => {
@@ -34,25 +47,14 @@ function App() {
     };
   }, []);
 
-  //state for storing logged-in team data, get it from localStorage if it exists
-  const [teamData, setTeamData] = useState(() => {
-    const savedTeamData = localStorage.getItem('teamData')
-    return savedTeamData ? JSON.parse(savedTeamData) : null
-  })
-
-   // Whenever teamData is updated, save it to localStorage
-   useEffect(() => {
-    if (teamData) {
-      localStorage.setItem('teamData', JSON.stringify(teamData));
-    }
-  }, [teamData]);
+  
 
   return (
     <div>
       {/* only render the NavBar if a used is logged in and the keyboard is not open */}
       <NavBar className={teamData && !isKeyboardOpen ? 'visible' : 'hidden'} />
       <Routes>
-        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData}/>) : <MissionHome teamData={teamData} setTeamData={setTeamData} setIsGameInProgress={setIsGameInProgress}/>} />
+        <Route path="/" element={!teamData ? (<Login setTeamData={setTeamData} setIsAdmin={setIsAdmin}/>) : <MissionHome teamData={teamData} setTeamData={setTeamData} setIsGameInProgress={setIsGameInProgress} isAdmin={isAdmin}/>} />
         <Route path="/challenges" element={<Challenges teamData={teamData} isGameInProgress={isGameInProgress}/>} />
         <Route path="/leaderboard" element={<LeaderBoard teamData={teamData}/>} />
         <Route path="/challenges/:station_id" element={<SingleChallenge teamData={teamData}/>} />
