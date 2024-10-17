@@ -34,15 +34,15 @@ function SingleChallenge({ teamData }) {
   }
 
   async function handleSubmitAnswer(stationId) {
-    const userAnswer = answers[stationId]; //get the user's inputted answer from the state
+    const userAnswer = answers[stationId].toLowerCase().trim(); //get the user's inputted answer from the state
     const stationRef = doc(db, "stations", stationId);
     const stationSnap = await getDoc(stationRef);
 
     if (stationSnap.exists()) {
-      const correctAnswer = stationSnap.data().correct_answer;
+      const correctAnswers = stationSnap.data().correct_answers.map(answer => answer.toLowerCase().trim());
 
-      //if the answer is correct, add to the answers table
-      if (userAnswer === correctAnswer) {
+      //if the array of correct answers in the db includes the inputted answer, add to the answers table
+      if (correctAnswers.includes(userAnswer)) {
         const customStationId = stationSnap.data().station_id;
         //create a new document in the answers table
         await addDoc(collection(db, "answers"), {
